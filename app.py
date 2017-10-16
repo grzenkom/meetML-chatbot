@@ -12,8 +12,8 @@ def homepage():
     return "<h1>Meet ML chat bot </h1><p>Python: {ver}</p>".format(ver=sys.version)
 
 
-@app.route('/webhook_chat_google', methods=['POST'])
-def webhook_chat_google():
+@app.route('/webhook', methods=['POST'])
+def webhook():
 
     req = request.get_json(silent=True, force=True)
     print('Request:\n{0}'.format(json.dumps(req, indent=4)))
