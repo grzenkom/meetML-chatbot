@@ -6,8 +6,8 @@ KNOWLEDGE_BASE_FILE = os.path.join(KNOWLEDGE_BASE_PATH, "main.csv")
 
 
 def get_kb_value(element, column_name):
-    kb = pd.read_csv(KNOWLEDGE_BASE_FILE)
+    kb = pd.read_csv(KNOWLEDGE_BASE_FILE, dtype=object)
     return str(kb[kb["Element"].str.lower() == element.lower()][column_name].tolist()[0])
 
 if __name__ == "__main__":
-    print(get_kb_value("carbon", "Density"))
+    print(get_kb_value("carbon", "Group"))
