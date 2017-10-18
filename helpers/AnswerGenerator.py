@@ -12,20 +12,21 @@ COLUMN_MAPPING = {
     "period": {"column_name": "Period", "unit": ""},
     "group": {"column_name": "Group", "unit": ""},
     "origin of name": {"column_name": "Origin_of_name", "unit": ""},
-    "abundance": {"column_name": "Abundance_in_Earths_crust", "unit": ""},
+    "abundance": {"column_name": "Abundance_in_Earths_crust", "unit": "mg/kg"},
 }
 
 ANSWER_TEMPLATE = "The {0} of {1} is {2}{3}."
-ABUNDANCE_THRESHOLD = 0.01
+ABUNDANCE_ANSWER_TEMPLATE = "{1} is {4} ({2}{3})."
+ABUNDANCE_THRESHOLD = 0.1
 
 
-def abundance_value_mapping(action, value):
+def abundance_value_mapping(action, value, element):
     if action == "ask_abundance":
         if float(value) >= ABUNDANCE_THRESHOLD:
-            return "quite common"
+            return "quite common", ABUNDANCE_ANSWER_TEMPLATE, element.title()
         else:
-            return "rare"
-    return value
+            return "rare", ABUNDANCE_ANSWER_TEMPLATE, element.title()
+    return str(), ANSWER_TEMPLATE, element
 
 
 def prepare_answer(action, parameters):
@@ -41,13 +42,15 @@ def prepare_answer(action, parameters):
         column_mapping_key = convert_action_to_key(action)
 
     column_name = COLUMN_MAPPING.get(column_mapping_key).get("column_name")
+
     unit = COLUMN_MAPPING.get(column_mapping_key).get("unit")
     if unit:
         unit = " " + unit
-    value = KnowledgeBaseReader.get_kb_value(element, column_name)
-    value = abundance_value_mapping(action, value)
 
-    return ANSWER_TEMPLATE.format(column_mapping_key, element, value, unit)
+    value = KnowledgeBaseReader.get_kb_value(element, column_name)
+    abundance_value, answer_template, element_in_answer = abundance_value_mapping(action, value, element)
+
+    return answer_template.format(column_mapping_key, element_in_answer, value, unit, abundance_value)
 
 
 def convert_action_to_key(action):
@@ -56,7 +59,7 @@ def convert_action_to_key(action):
 if __name__ == "__main__":
     TEST_CASES = [
         {"action": "ask_property", "parameters": {"element": "carbon", "property": "density"}},
-        {"action": "ask_abundance", "parameters": {"element": "lithium"}},
+        {"action": "ask_abundance", "parameters": {"element": "silver"}},
         {"action": "ask_periodic_table", "parameters": {"element": "iron", "periodic_table_order": "atomic number"}},
         {"action": "ask_origin_of_name", "parameters": {"element": "scandium"}},
     ]
