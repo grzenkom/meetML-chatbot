@@ -1,0 +1,7 @@
+{
+  "name": "Dialogflow elbot webhook",
+  "description": "Dialogflow elbot webhook",
+  "repository": "https://github.com/grzenkom/meetML-chatbot",
+  "logo": "http://xvir.github.io/img/apiai.png",
+  "keywords": ["api.ai", "natural language", "dialogflow"]
+}
