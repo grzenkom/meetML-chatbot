@@ -2,17 +2,17 @@
 from knowledge_base import KnowledgeBaseReader
 
 COLUMN_MAPPING = {
-    "atomic weight": {"column_name": "Atomic_weight", "unit": "[u]"},
-    "density": {"column_name": "Density", "unit": "[g/cm3]"},
-    "melting point": {"column_name": "Melting_point", "unit": "[K]"},
-    "boiling point": {"column_name": "Boiling_point", "unit": "[K]"},
-    "specific heat capacity": {"column_name": "Specific_heat_capacity", "unit": "[J/g · K]"},
+    "atomic weight": {"column_name": "Atomic_weight", "unit": "u"},
+    "density": {"column_name": "Density", "unit": "g/cm3"},
+    "melting point": {"column_name": "Melting_point", "unit": "K"},
+    "boiling point": {"column_name": "Boiling_point", "unit": "K"},
+    "specific heat capacity": {"column_name": "Specific_heat_capacity", "unit": "J/g · K"},
     "electronegativity": {"column_name": "Electronegativity", "unit": ""},
     "atomic number": {"column_name": "Atomic_number", "unit": ""},
     "period": {"column_name": "Period", "unit": ""},
     "group": {"column_name": "Group", "unit": ""},
     "origin of name": {"column_name": "Origin_of_name", "unit": ""},
-    "abundance": {"column_name": "Abundance_in_Earths_crust", "unit": "[mg/kg]"},
+    "abundance": {"column_name": "Abundance_in_Earths_crust", "unit": "mg/kg"},
 }
 
 ANSWER_TEMPLATE = "The {0} of {1} is {2}{3}."
@@ -36,7 +36,7 @@ def prepare_answer(action, parameters):
         unit = " " + unit
     value = KnowledgeBaseReader.get_kb_value(element, column_name)
 
-    return ANSWER_TEMPLATE.format(column_mapping_key, element.title(), value, unit)
+    return ANSWER_TEMPLATE.format(column_mapping_key, element, value, unit)
 
 
 def convert_action_to_key(action):
