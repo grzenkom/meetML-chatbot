@@ -29,17 +29,17 @@ def abundance_value_mapping(action, value, element):
     return str(), ANSWER_TEMPLATE, element
 
 
-def prepare_answer(action, parameters):
-    element = parameters.get("element").lower()
-    property = parameters.get("property")
-    periodic_table_order = parameters.get("periodic_table_order")
+def prepare_answer(intent_name, entities):
+    element = entities.get("element").lower()
+    property = entities.get("property")
+    periodic_table_order = entities.get("periodic_table_order")
 
     if property:
         column_mapping_key = property
     elif periodic_table_order:
         column_mapping_key = periodic_table_order
     else:
-        column_mapping_key = convert_action_to_key(action)
+        column_mapping_key = convert_action_to_key(intent_name)
 
     column_name = COLUMN_MAPPING.get(column_mapping_key).get("column_name")
 
@@ -48,7 +48,7 @@ def prepare_answer(action, parameters):
         unit = " " + unit
 
     value = KnowledgeBaseReader.get_kb_value(element, column_name)
-    abundance_value, answer_template, element_in_answer = abundance_value_mapping(action, value, element)
+    abundance_value, answer_template, element_in_answer = abundance_value_mapping(intent_name, value, element)
 
     return answer_template.format(column_mapping_key, element_in_answer, value, unit, abundance_value)
 

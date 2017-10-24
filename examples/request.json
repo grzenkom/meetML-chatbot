@@ -1,0 +1,39 @@
+{
+     "result": {
+         "fulfillment": {
+             "speech": "I think it's not too heavy, did you check on Wikipedia?",
+             "messages": [
+                 {
+                     "speech": "I think it's not too heavy, did you check on Wikipedia?",
+                     "id": "1159c566-eaa0-4652-ab91-fe9ad38dd915",
+                     "type": 0
+                 }
+             ]
+         },
+         "metadata": {
+             "intentName": "ask_property",
+             "webhookForSlotFillingUsed": "false",
+             "webhookUsed": "true",
+             "intentId": "24d9791a-6778-4f44-bcd5-e3ba02cc7f2f"
+         },
+         "contexts": [],
+         "parameters": {
+             "element": "carbon",
+             "property": "atomic weight"
+         },
+         "speech": "",
+         "resolvedQuery": "what is the atomic weight of carbon?",
+         "action": "",
+         "actionIncomplete": false,
+         "score": 1.0,
+         "source": "agent"
+     },
+     "timestamp": "2017-10-24T13:14:10.694Z",
+     "sessionId": "a47b3135-f2ee-ed7e-502d-e4cbc217dd62",
+     "id": "8e94cd78-7fbd-4157-a6f4-18a13062f98c",
+     "lang": "en",
+     "status": {
+         "code": 200,
+         "errorType": "success"
+     }
+ }

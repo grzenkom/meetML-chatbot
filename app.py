@@ -18,10 +18,10 @@ def webhook():
     req = request.get_json(silent=True, force=True)
     print('Request:\n{0}'.format(json.dumps(req, indent=4)))
 
-    parameters = req.get("result").get("parameters")
-    action = req.get("result").get("action")
+    entities = req.get("result").get("parameters")
+    intent = req.get("result").get("metadata").get("intentName")
 
-    answer = AnswerGenerator.prepare_answer(action, parameters)
+    answer = AnswerGenerator.prepare_answer(intent, entities)
     response = prepare_response(answer)
 
     response = json.dumps(response, indent=4)
