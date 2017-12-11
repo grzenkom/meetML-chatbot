@@ -14,7 +14,6 @@ def homepage():
 
 @app.route('/webhook', methods=['POST'])
 def webhook():
-
     req = request.get_json(silent=True, force=True)
     print('Request:\n{0}'.format(json.dumps(req, indent=4)))
 
@@ -23,8 +22,7 @@ def webhook():
 
     answer = AnswerGenerator.prepare_answer(intent, entities)
     response = prepare_response(answer)
-
-    response = json.dumps(response, indent=4)
+    
     print('Response:\n{0}'.format(response))
 
     r = make_response(response)
@@ -32,14 +30,13 @@ def webhook():
     return r
 
 
-def prepare_response(answer, context_out=None):
+def prepare_response(answer):
     response = dict()
+	
     response["speech"] = answer
     response["displayText"] = answer
-    if context_out:
-        response["contextOut"] = context_out
 
-    return response
+    return json.dumps(response, indent=4)
 
 
 if __name__ == '__main__':
